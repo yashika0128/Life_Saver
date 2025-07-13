@@ -37,12 +37,3 @@
 
 Just open the `index.html` file in your browser.
 
-### 🐍 Want to add Backend (later)?
-
-You’ll need:
-- Python
-- Django
-
-Then run:
-```bash
-python manage.py runserver
