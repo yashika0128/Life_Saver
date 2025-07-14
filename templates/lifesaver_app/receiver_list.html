@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receiver List</title>
+</head>
+<body>
+    <h1>Receivers</h1>
+    <a href="/receivers/new/">Add New Receiver</a>
+    <ul>
+        {% for receiver in receivers %}
+            <li>{{ receiver.patient_name }} - {{ receiver.required_blood_group }} - {{ receiver.hospital }}</li>
+        {% empty %}
+            <li>No requests found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
