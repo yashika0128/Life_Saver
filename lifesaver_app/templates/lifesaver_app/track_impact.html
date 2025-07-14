@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Impact - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 30%, #0c1222 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background elements */
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 107, 157, 0.1);
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255, 107, 157, 0.2);
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: #ff6b9d;
+            font-size: 20px;
+            animation: heartFloat 8s ease-in-out infinite;
+            opacity: 0;
+            display: none;
+        }
+
+        .twinkling-star {
+            position: absolute;
+            color: #60a5fa;
+            font-size: 12px;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes heartFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-20px) scale(1); opacity: 0; }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Pulse background */
+        .pulse-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255, 107, 157, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        /* Main content */
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .main-heading {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ff6b9d 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 107, 157, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.3)); }
+            100% { filter: drop-shadow(0 0 30px rgba(255, 107, 157, 0.5)); }
+        }
+
+        .quote-container {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 157, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .quote-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 107, 157, 0.4);
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            font-size: 1rem;
+            color: #ff6b9d;
+            font-weight: 500;
+        }
+
+        /* Loading spinner */
+        .spinner-container {
+            margin: 3rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 107, 157, 0.2);
+            border-top: 4px solid #ff6b9d;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-top: 1rem;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Progress bar */
+        .progress-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(90deg, #ff6b9d 0%, #60a5fa 100%);
+            border-radius: 20px;
+            width: 0%;
+            animation: progressLoad 3s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(255, 107, 157, 0.5);
+        }
+
+        @keyframes progressLoad {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* Coming soon text */
+        .coming-soon {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            margin-top: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* Feature preview */
+        .feature-preview {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 107, 157, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 107, 157, 0.3);
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .quote {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="pulse-bg"></div>
+        <!-- Floating bubbles -->
+        <div class="floating-bubble" style="left: 10%; top: 20%; width: 60px; height: 60px; animation-delay: 0s;"></div>
+        <div class="floating-bubble" style="right: 15%; top: 60%; width: 40px; height: 40px; animation-delay: 2s;"></div>
+        <div class="floating-bubble" style="left: 70%; top: 10%; width: 80px; height: 80px; animation-delay: 4s;"></div>
+        <div class="floating-bubble" style="right: 60%; bottom: 20%; width: 50px; height: 50px; animation-delay: 1s;"></div>
+        
+        <!-- Twinkling stars -->
+        <div class="twinkling-star" style="left: 30%; top: 25%; animation-delay: 0s;">✨</div>
+        <div class="twinkling-star" style="right: 40%; top: 15%; animation-delay: 1s;">⭐</div>
+        <div class="twinkling-star" style="left: 60%; top: 70%; animation-delay: 2s;">✨</div>
+        <div class="twinkling-star" style="right: 20%; bottom: 30%; animation-delay: 3s;">⭐</div>
+        <div class="twinkling-star" style="left: 40%; bottom: 60%; animation-delay: 4s;">✨</div>
+    </div>
+
+    <div class="container">
+        <h1 class="main-heading">Track Your Impact</h1>
+        
+        <div class="quote-container">
+            <div class="quote">
+                "Every drop of blood you donate can save up to three lives. Your generosity creates ripples of hope that extend far beyond what you can imagine."
+            </div>
+            <div class="quote-author">— Blood Donation Heroes</div>
+        </div>
+
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="loading-text">Building something extraordinary...</div>
+        </div>
+
+        <div class="coming-soon">
+            This powerful feature is coming soon and will transform how you see your donation impact
+        </div>
+
+        <div class="feature-preview">
+            <h3 style="color: #60a5fa; margin-bottom: 1rem; font-size: 1.4rem;">What's Coming</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Impact Analytics</div>
+                    <div class="feature-desc">See exactly how many lives you've helped save with detailed tracking</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Donation Goals</div>
+                    <div class="feature-desc">Set personal milestones and track your progress over time</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-title">Achievement Badges</div>
+                    <div class="feature-desc">Earn recognition for your life-saving contributions</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌍</div>
+                    <div class="feature-title">Community Impact</div>
+                    <div class="feature-desc">Connect with other donors and see collective impact</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add more dynamic elements
+        function createRandomElement(className, symbols, container) {
+            const element = document.createElement('div');
+            element.className = className;
+            element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            element.style.left = Math.random() * 100 + '%';
+            element.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(element);
+            
+            setTimeout(() => {
+                if (element.parentNode) {
+                    element.parentNode.removeChild(element);
+                }
+            }, 8000);
+        }
+
+        // Continuously add floating elements
+        const backgroundAnimation = document.querySelector('.background-animation');
+        const starSymbols = ['✨', '⭐', '🌟'];
+
+        setInterval(() => {
+            createRandomElement('twinkling-star', starSymbols, backgroundAnimation);
+        }, 3000);
+
+        // Add subtle mouse interaction
+        document.addEventListener('mousemove', (e) => {
+            const pulse = document.querySelector('.pulse-bg');
+            const x = (e.clientX / window.innerWidth) * 20;
+            const y = (e.clientY / window.innerHeight) * 20;
+            pulse.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(0.8)`;
+        });
+    </script>
+</body>
+</html>

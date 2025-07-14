@@ -1,0 +1,693 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Feedback - Blood Donation Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a2332 0%, #2c3e50 50%, #34495e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Gentle pulsing background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 107, 157, 0.03) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 70%, rgba(52, 152, 219, 0.04) 0%, transparent 60%),
+                        radial-gradient(circle at 50% 20%, rgba(155, 89, 182, 0.03) 0%, transparent 60%);
+            animation: gentlePulse 12s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes gentlePulse {
+            0%, 100% { 
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Floating bubbles */
+        .bubble {
+            position: fixed;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(255, 107, 157, 0.1), rgba(52, 152, 219, 0.1));
+            animation: floatBubble 15s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes floatBubble {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+                transform: translateY(90vh) scale(1);
+            }
+            90% {
+                opacity: 0.6;
+                transform: translateY(10vh) scale(1);
+            }
+            100% {
+                transform: translateY(-10vh) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        /* Gentle heart particles */
+        .heart {
+            position: fixed;
+            color: #ff6b9d;
+            font-size: 12px;
+            animation: floatHeart 20s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+        }
+        
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.6;
+            }
+            85% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Twinkling stars */
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 107, 157, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            animation: gentleSlideDown 1s ease-out;
+        }
+        
+        @keyframes gentleSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header h1 {
+            color: #ffffff;
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 20px rgba(255, 107, 157, 0.2);
+            animation: gentleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes gentleGlow {
+            from {
+                text-shadow: 0 2px 20px rgba(255, 107, 157, 0.2);
+            }
+            to {
+                text-shadow: 0 2px 30px rgba(255, 107, 157, 0.4);
+            }
+        }
+        
+        .header p {
+            color: #e8f4f8;
+            font-size: 1.15em;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .form-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 107, 157, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            animation: gentleSlideUp 1s ease-out 0.3s both;
+        }
+        
+        @keyframes gentleSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .form-card h2 {
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #e8f4f8;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            font-size: 16px;
+            transition: all 0.4s ease;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            backdrop-filter: blur(10px);
+        }
+        
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #ff6b9d;
+            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        input[type="text"]::placeholder, textarea::placeholder {
+            color: #a0b4c1;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 20px rgba(255, 107, 157, 0.25);
+            position: relative;
+            overflow: hidden;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.35);
+        }
+        
+        .posts-section h2 {
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            text-align: center;
+            font-weight: 600;
+            animation: gentleFadeIn 1s ease-out 0.6s both;
+        }
+        
+        @keyframes gentleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .post-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 107, 157, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 4px solid #ff6b9d;
+            transition: all 0.4s ease;
+            animation: gentleSlideIn 0.8s ease-out;
+        }
+        
+        @keyframes gentleSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(255, 107, 157, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        
+        .post-title {
+            color: #ffffff;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .post-content {
+            color: #e8f4f8;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+        
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .post-time {
+            color: #a0b4c1;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .edit-btn, .delete-btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+        
+        .edit-btn {
+            background: rgba(52, 152, 219, 0.15);
+            color: #3498db;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+        
+        .edit-btn:hover {
+            background: rgba(52, 152, 219, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .delete-btn {
+            background: rgba(255, 107, 157, 0.15);
+            color: #ff6b9d;
+            border: 1px solid rgba(255, 107, 157, 0.3);
+        }
+        
+        .delete-btn:hover {
+            background: rgba(255, 107, 157, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.2);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #a0b4c1;
+            font-size: 1.1em;
+        }
+        
+        .empty-state-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            color: #ff6b9d;
+            opacity: 0.4;
+            animation: gentlePulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes gentlePulse {
+            0%, 100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .form-card, .post-card {
+                padding: 25px;
+            }
+            
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .post-actions {
+                align-self: flex-end;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .form-card, .post-card {
+                padding: 20px;
+            }
+            
+            .post-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+            
+            .edit-btn, .delete-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Share Your Story</h1>
+            <p>Your experience matters to us and helps create a welcoming space for everyone. Together, we're building a caring community that saves lives through the gift of blood donation.</p>
+        </div>
+        
+        <!-- Feedback Form -->
+        <div class="form-card">
+            <h2>Tell Us About Your Experience</h2>
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="title">What would you like to share?</label>
+                    <input type="text" id="title" name="title" placeholder="Give your story a meaningful title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="content">Your Story</label>
+                    <textarea id="content" name="content" placeholder="We'd love to hear about your experience - how did our team make you feel? What stood out to you?" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Share Your Story</button>
+            </form>
+        </div>
+        
+        <!-- Posts Section -->
+        <div class="posts-section">
+            <h2>Stories from Our Community</h2>
+            <div id="postsContainer">
+                <!-- Sample posts will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create gentle floating bubbles
+        function createBubbles() {
+            const bubbleCount = 8;
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 60 + 20;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.animationDelay = Math.random() * 15 + 's';
+                bubble.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                document.body.appendChild(bubble);
+            }
+        }
+
+        // Create floating heart particles
+        function createHearts() {
+            const heartCount = 6;
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '♥';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 20 + 's';
+                heart.style.animationDuration = (Math.random() * 5 + 20) + 's';
+                document.body.appendChild(heart);
+            }
+        }
+
+        // Create twinkling stars
+        function createStars() {
+            const starCount = 30;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(star);
+            }
+        }
+
+        // Sample posts data with warmer, more personal content
+        let posts = [
+            {
+                id: 1,
+                title: "A Safe and Caring Environment",
+                content: "From the moment I walked in, I felt welcomed and cared for. The staff took time to explain everything and made sure I was comfortable throughout the process. It's wonderful to know that something so simple can make such a difference in someone's life.",
+                timestamp: new Date('2024-07-10T10:30:00')
+            },
+            {
+                id: 2,
+                title: "First Time Donor - Amazing Experience",
+                content: "I was nervous about my first donation, but the team here made me feel so at ease. They answered all my questions patiently and the whole process was much smoother than I expected. I'm already looking forward to my next visit!",
+                timestamp: new Date('2024-07-09T14:15:00')
+            },
+            {
+                id: 3,
+                title: "Community That Cares",
+                content: "What strikes me most is how this place brings people together for such a meaningful cause. The staff genuinely cares about each donor and the impact we're making together. It's more than just a donation - it's being part of something bigger.",
+                timestamp: new Date('2024-07-08T16:45:00')
+            }
+        ];
+
+        // Function to format timestamp
+        function formatTime(timestamp) {
+            const now = new Date();
+            const diffInHours = Math.floor((now - timestamp) / (1000 * 60 * 60));
+            const diffInDays = Math.floor(diffInHours / 24);
+            
+            if (diffInHours < 1) return 'Just now';
+            if (diffInHours < 24) return `${diffInHours} hours ago`;
+            if (diffInDays === 1) return 'Yesterday';
+            if (diffInDays < 7) return `${diffInDays} days ago`;
+            
+            return timestamp.toLocaleDateString();
+        }
+
+        // Function to render posts
+        function renderPosts() {
+            const container = document.getElementById('postsContainer');
+            
+            if (posts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">💝</div>
+                        <p>No stories shared yet. Be the first to tell us about your experience!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = posts.map((post, index) => `
+                <div class="post-card" style="animation-delay: ${index * 0.2}s">
+                    <div class="post-title">${post.title}</div>
+                    <div class="post-content">${post.content}</div>
+                    <div class="post-meta">
+                        <span class="post-time">${formatTime(post.timestamp)}</span>
+                        <div class="post-actions">
+                            <button class="edit-btn" onclick="editPost(${post.id})">Edit</button>
+                            <button class="delete-btn" onclick="deletePost(${post.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Function to add new post
+        function addPost(title, content) {
+            const newPost = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                timestamp: new Date()
+            };
+            posts.unshift(newPost);
+            renderPosts();
+        }
+
+        // Function to edit post
+        function editPost(id) {
+            const post = posts.find(p => p.id === id);
+            if (!post) return;
+            
+            const newTitle = prompt('Edit your story title:', post.title);
+            if (newTitle === null) return;
+            
+            const newContent = prompt('Edit your story:', post.content);
+            if (newContent === null) return;
+            
+            post.title = newTitle;
+            post.content = newContent;
+            renderPosts();
+        }
+
+        // Function to delete post
+        function deletePost(id) {
+            if (confirm('Are you sure you want to remove your story?')) {
+                posts = posts.filter(p => p.id !== id);
+                renderPosts();
+            }
+        }
+
+        // Form submission handler
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('title').value.trim();
+            const content = document.getElementById('content').value.trim();
+            
+            if (title && content) {
+                addPost(title, content);
+                
+                // Reset form
+                document.getElementById('title').value = '';
+                document.getElementById('content').value = '';
+                
+                // Show success message
+                alert('Thank you for sharing your story! Your experience helps make our community stronger.');
+            }
+        });
+
+        // Initialize animations and content
+        createBubbles();
+        createHearts();
+        createStars();
+        renderPosts();
+    </script>
+</body>
+</html>

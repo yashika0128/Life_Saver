@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodConnect - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #16213e 70%, #0f0f23 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Elements */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .bubble-1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .bubble-2 {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .bubble-3 {
+            width: 40px;
+            height: 40px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b9d;
+            transform: rotate(-45deg);
+            animation: heartFloat 8s ease-in-out infinite;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background: #ff6b9d;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: 10px;
+        }
+
+        .heart-1 {
+            top: 30%;
+            left: 70%;
+            animation-delay: 1s;
+        }
+
+        .heart-2 {
+            top: 70%;
+            left: 60%;
+            animation-delay: 3s;
+        }
+
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff6b9d;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .star-1 {
+            top: 15%;
+            left: 85%;
+            animation-delay: 0.5s;
+        }
+
+        .star-2 {
+            top: 45%;
+            left: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .star-3 {
+            top: 75%;
+            left: 90%;
+            animation-delay: 2.5s;
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Blood Drop Icon */
+        .blood-drop {
+            width: 80px;
+            height: 120px;
+            margin: 0 auto 40px;
+            position: relative;
+            background: linear-gradient(145deg, #ff6b9d, #ff4757);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.4);
+            animation: bloodPulse 3s ease-in-out infinite;
+        }
+
+        .blood-drop::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: dropGlow 2s ease-in-out infinite alternate;
+        }
+
+        .blood-drop::after {
+            content: '';
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        /* Typography */
+        .coming-soon {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 20px rgba(255, 107, 157, 0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .quote {
+            max-width: 600px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .quote-author {
+            font-size: 1rem;
+            color: #ff6b9d;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .coming-soon {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .quote {
+                font-size: 1rem;
+                padding: 20px;
+            }
+
+            .blood-drop {
+                width: 60px;
+                height: 90px;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .coming-soon {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .quote {
+                font-size: 0.9rem;
+                padding: 15px;
+            }
+
+            .blood-drop {
+                width: 50px;
+                height: 75px;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes heartFloat {
+            0%, 100% {
+                transform: rotate(-45deg) translateY(0px);
+                opacity: 0.7;
+            }
+            50% {
+                transform: rotate(-45deg) translateY(-30px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        @keyframes bloodPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 20px 40px rgba(255, 107, 157, 0.4);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 25px 50px rgba(255, 107, 157, 0.6);
+            }
+        }
+
+        @keyframes dropGlow {
+            0% {
+                opacity: 0.2;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0.4;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 4px 20px rgba(255, 107, 157, 0.5);
+            }
+            100% {
+                text-shadow: 0 4px 30px rgba(255, 107, 157, 0.8);
+            }
+        }
+
+        /* Hover Effects */
+        .quote:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+        }
+
+        .blood-drop:hover {
+            transform: scale(1.15);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-bubble bubble-1"></div>
+        <div class="floating-bubble bubble-2"></div>
+        <div class="floating-bubble bubble-3"></div>
+        
+        <div class="heart heart-1"></div>
+        <div class="heart heart-2"></div>
+        
+        <div class="star star-1"></div>
+        <div class="star star-2"></div>
+        <div class="star star-3"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Blood Drop Icon -->
+        <div class="blood-drop"></div>
+
+        <!-- Coming Soon Text -->
+        <h1 class="coming-soon">Coming Soon</h1>
+        <p class="subtitle">Making Blood Donation Accessible for Everyone</p>
+
+        <!-- Accessibility Quote -->
+        <div class="quote">
+            "Accessibility is not a feature to be added, but a mindset to be embraced. When we design for everyone, we create solutions that truly save lives."
+            <div class="quote-author">— BloodConnect Team</div>
+        </div>
+    </div>
+</body>
+</html>

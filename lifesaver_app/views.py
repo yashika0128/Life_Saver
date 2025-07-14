@@ -30,3 +30,15 @@ def receiver_create(request):
 
 def home(request):
     return render(request, 'lifesaver_app/index.html')
+
+def community(request):
+    return render(request, 'lifesaver_app/community.html')
+
+def mobile_friendly(request):
+    return render(request, 'lifesaver_app/mobile_friendly.html')
+
+def trusted_network(request):
+    return render(request, 'lifesaver_app/trusted_network.html')
+
+def track_impact(request):
+    return render(request, 'lifesaver_app/track_impact.html')

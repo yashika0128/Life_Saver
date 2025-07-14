@@ -469,6 +469,28 @@
         opacity: 1;
         transform: translateY(0);
       }
+
+      .card-link {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+      }
+      .card-link:hover {
+        color: inherit;
+      }
+
+      a {
+        text-decoration: none !important;
+        color: inherit !important;
+      }
+
+      a:visited,
+      a:focus,
+      a:active {
+        color: inherit !important;
+        text-decoration: none !important;
+        outline: none !important;
+      }
     </style>
   </head>
   <body>
@@ -510,30 +532,43 @@
       <section class="features fade-in">
         <h2 id="about">About</h2>
         <div class="features-grid">
+          <a href="{% url 'community' %}" class="card-link">
+            <div class="feature-card">
+              <span class="feature-icon">🩸</span>
+              <h3>Safe & Easy Donation</h3>
+              <p>
+                Simple and secure blood donation process with certified medical
+                professionals in comfortable environments.
+              </p>
+            </div>
+          </a>
           <div class="feature-card">
-            <span class="feature-icon">🩸</span>
-            <h3>Safe & Easy Donation</h3>
-            <p>
-              Simple and secure blood donation process with certified medical
-              professionals in comfortable environments.
-            </p>
+            <a
+              href="{% url 'receiver_create' %}"
+              class="text-decoration-none text-reset"
+            >
+              <span class="feature-icon">🔍</span>
+              <h3>Find Blood Quickly</h3>
+              <p>
+                Instantly locate available blood types in your area when you
+                need them most with our efficient search system.
+              </p>
+            </a>
           </div>
-          <div class="feature-card">
-            <span class="feature-icon">🔍</span>
-            <h3>Find Blood Quickly</h3>
-            <p>
-              Instantly locate available blood types in your area when you need
-              them most with our efficient search system.
-            </p>
-          </div>
-          <div class="feature-card">
-            <span class="feature-icon">📱</span>
-            <h3>Mobile Friendly</h3>
-            <p>
-              Access our services anytime, anywhere with our user-friendly
-              mobile platform and helpful notifications.
-            </p>
-          </div>
+          <a
+            href="{% url 'mobile_friendly' %}"
+            class="text-decoration-none text-reset"
+          >
+            <div class="feature-card">
+              <span class="feature-icon">📱</span>
+              <h3>Mobile Friendly</h3>
+              <p>
+                Access our services anytime, anywhere with our user-friendly
+                mobile platform and helpful notifications.
+              </p>
+            </div>
+          </a>
+          <a href="{% url 'trusted_network' %}" class="text-decoration-none text-reset">
           <div class="feature-card">
             <span class="feature-icon">🏥</span>
             <h3>Trusted Network</h3>
@@ -542,6 +577,8 @@
               and professional service you can trust.
             </p>
           </div>
+          </a>
+          <a href="{% url 'track_impact' %}" class="text-decoration-none text-reset">
           <div class="feature-card">
             <span class="feature-icon">📊</span>
             <h3>Track Your Impact</h3>
@@ -550,6 +587,7 @@
               transparent impact tracking.
             </p>
           </div>
+          </a>
           <div class="feature-card">
             <span class="feature-icon">🤝</span>
             <h3>Community Support</h3>
