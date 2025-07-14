@@ -1,9 +1,7 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include  # ✅ include is important
 
 urlpatterns = [
-    path('donors/', views.donor_list, name='donor_list'),
-    path('donors/new/', views.donor_create, name='donor_create'),
-    path('receivers/', views.receiver_list, name='receiver_list'),
-    path('receivers/new/', views.receiver_create, name='receiver_create'),
+    path('admin/', admin.site.urls),
+    path('', include('lifesaver_app.urls')),  # ✅ This connects the app
 ]
