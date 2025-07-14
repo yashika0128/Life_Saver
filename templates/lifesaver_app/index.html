@@ -621,10 +621,10 @@
               <a class="nav-link" href="#statistics">Statistics</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#donate">Donate</a>
+              <a class="nav-link" href="{% url 'donor_create' %}">Donate</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#request">Request</a>
+              <a class="nav-link" href="{% url 'receiver_create' %}">Request</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#contact">Contact</a>
@@ -925,6 +925,10 @@
                   <h3 class="card-title">Request Blood</h3>
                   <p class="text-muted">Get help when you need it most</p>
                 </div>
+                <a href="{% url 'receiver_create' %}" class="btn btn-outline-danger btn-custom w-100 mb-3">
+    <i class="fas fa-hand-holding-medical me-2"></i>Request via Backend
+</a>
+
                 <form>
                   <div class="form-floating mb-3">
                     <input
