@@ -1,16 +1,32 @@
 from django.db import models
 
+GENDER_CHOICES = [
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('Other', 'Other'),
+]
+
+BLOOD_GROUP_CHOICES = [
+    ('A+', 'A+'),
+    ('A-', 'A-'),
+    ('B+', 'B+'),
+    ('B-', 'B-'),
+    ('AB+', 'AB+'),
+    ('AB-', 'AB-'),
+    ('O+', 'O+'),
+    ('O-', 'O-'),
+]
+
 class Donor(models.Model):
-    full_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     age = models.IntegerField()
-    gender = models.CharField(max_length=10)
-    blood_group = models.CharField(max_length=5)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    blood_group = models.CharField(max_length=5, choices=BLOOD_GROUP_CHOICES)
     phone_number = models.CharField(max_length=15)
     location = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.full_name
-
+        return self.name
 
 class Receiver(models.Model):
     patient_name = models.CharField(max_length=100)
