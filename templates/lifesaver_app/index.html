@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -472,8 +473,8 @@
         <section class="hero">
             <h1>Save Lives, Donate Blood</h1>
             <p>Every drop counts. Join our compassionate community to help save lives through blood donation.</p>
-            <a href="#donate" class="btn btn-primary">Donate Now</a>
-            <a href="#find" class="btn btn-secondary">Find Blood</a>
+            <a href="{% url 'donor_create' %}" class="btn btn-primary">Donate Now</a>
+            <a href="{% url 'receiver_create' %}" class="btn btn-secondary">Find Blood</a>
         </section>
 
         <!-- Features Section -->
