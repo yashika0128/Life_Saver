@@ -1,870 +1,989 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LifeSaver Blood Donation</title>
-    
+
     <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
     <!-- Chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        :root {
-            --primary-red: #e74c3c;
-            --dark-red: #c0392b;
-            --light-red: #fadbd8;
-            --success-green: #27ae60;
-            --warning-orange: #f39c12;
-            --info-blue: #3498db;
-            --white: #ffffff;
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-600: #6c757d;
-            --gray-800: #343a40;
-            --shadow: 0 15px 35px rgba(0,0,0,0.1);
-            --shadow-hover: 0 20px 40px rgba(0,0,0,0.15);
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --gradient-primary: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+      :root {
+        --primary-red: #e74c3c;
+        --dark-red: #c0392b;
+        --light-red: #fadbd8;
+        --success-green: #27ae60;
+        --warning-orange: #f39c12;
+        --info-blue: #3498db;
+        --white: #ffffff;
+        --gray-100: #f8f9fa;
+        --gray-200: #e9ecef;
+        --gray-600: #6c757d;
+        --gray-800: #343a40;
+        --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+        --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        --gradient-primary: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
 
-        html {
-            scroll-behavior: smooth;
-        }
+      html {
+        scroll-behavior: smooth;
+      }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
 
-        /* Particles Background */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: var(--gradient-secondary);
-        }
+      /* Particles Background */
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: var(--gradient-secondary);
+      }
 
-        /* Custom Bootstrap Enhancements */
-        .btn-custom {
-            border-radius: 50px;
-            padding: 12px 30px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
+      /* Custom Bootstrap Enhancements */
+      .btn-custom {
+        border-radius: 50px;
+        padding: 12px 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
 
-        .btn-custom::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
+      .btn-custom::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
 
-        .btn-custom:hover::before {
-            left: 100%;
-        }
+      .btn-custom:hover::before {
+        left: 100%;
+      }
 
-        .btn-custom:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
+      .btn-custom:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
 
-        .card-custom {
-            border: none;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            overflow: hidden;
-        }
+      .card-custom {
+        border: none;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        overflow: hidden;
+      }
 
-        .card-custom:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
+      .card-custom:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+      }
 
-        /* Header */
-        .navbar-custom {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            padding: 1rem 0;
-        }
+      /* Header */
+      .navbar-custom {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        padding: 1rem 0;
+      }
 
-        .navbar-brand {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-red) !important;
-        }
+      .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary-red) !important;
+      }
 
-        .navbar-brand i {
-            font-size: 2rem;
-            margin-right: 10px;
-        }
+      .navbar-brand i {
+        font-size: 2rem;
+        margin-right: 10px;
+      }
 
-        .navbar-nav .nav-link {
-            font-weight: 500;
-            color: var(--gray-800) !important;
-            position: relative;
-            margin: 0 10px;
-            transition: var(--transition);
-        }
+      .navbar-nav .nav-link {
+        font-weight: 500;
+        color: var(--gray-800) !important;
+        position: relative;
+        margin: 0 10px;
+        transition: var(--transition);
+      }
 
-        .navbar-nav .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
-            background: var(--primary-red);
-            transition: var(--transition);
-            transform: translateX(-50%);
-        }
+      .navbar-nav .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 50%;
+        background: var(--primary-red);
+        transition: var(--transition);
+        transform: translateX(-50%);
+      }
 
-        .navbar-nav .nav-link:hover {
-            color: var(--primary-red) !important;
-        }
+      .navbar-nav .nav-link:hover {
+        color: var(--primary-red) !important;
+      }
 
-        .navbar-nav .nav-link:hover::after {
-            width: 100%;
-        }
+      .navbar-nav .nav-link:hover::after {
+        width: 100%;
+      }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        background: var(--gradient-primary);
+        display: flex;
+        align-items: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="0,0 1000,100 1000,0"/></svg>') no-repeat center;
-            background-size: cover;
-        }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="0,0 1000,100 1000,0"/></svg>')
+          no-repeat center;
+        background-size: cover;
+      }
 
-        .hero-content {
-            z-index: 2;
-            position: relative;
-        }
+      .hero-content {
+        z-index: 2;
+        position: relative;
+      }
 
+      .hero h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 1s ease;
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease 0.3s both;
+      }
+
+      .hero-stats {
+        margin-top: 3rem;
+        animation: fadeInUp 1s ease 0.6s both;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--warning-orange);
+        display: block;
+        counter-reset: number;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+      }
+
+      /* Section Enhancements */
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--gray-800);
+        margin-bottom: 3rem;
+        position: relative;
+        text-align: center;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        width: 80px;
+        height: 4px;
+        background: var(--primary-red);
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+      }
+
+      .section-subtitle {
+        font-size: 1.2rem;
+        color: var(--gray-600);
+        text-align: center;
+        margin-bottom: 4rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* About Section with Visualizations */
+      .about-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .about-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+      }
+
+      .about-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .about-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Progress Bars */
+      .progress-custom {
+        height: 12px;
+        border-radius: 10px;
+        background: var(--gray-200);
+        overflow: hidden;
+        margin-bottom: 1rem;
+      }
+
+      .progress-bar-custom {
+        height: 100%;
+        border-radius: 10px;
+        background: var(--gradient-primary);
+        transition: width 2s ease;
+        position: relative;
+      }
+
+      .progress-bar-custom::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      /* Chart Containers */
+      .chart-container {
+        position: relative;
+        height: 400px;
+        margin: 2rem 0;
+        padding: 1rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+      }
+
+      .chart-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--gray-800);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      /* Interactive Blood Drop Animation */
+      .blood-drop {
+        width: 60px;
+        height: 60px;
+        background: var(--gradient-primary);
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        position: relative;
+        animation: pulse 2s infinite;
+        margin: 0 auto 1rem;
+      }
+
+      .blood-drop::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+      }
+
+      /* Form Enhancements */
+      .form-floating {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-floating > .form-control {
+        border: 2px solid var(--gray-200);
+        border-radius: 15px;
+        padding: 1rem;
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+
+      .form-floating > .form-control:focus {
+        border-color: var(--primary-red);
+        box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
+      }
+
+      .form-floating > label {
+        color: var(--gray-600);
+        font-weight: 500;
+      }
+
+      /* Blood Compatibility Table */
+      .compatibility-table {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .compatibility-table th {
+        background: var(--gradient-primary);
+        color: white;
+        font-weight: 600;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .compatibility-table td {
+        padding: 1rem;
+        text-align: center;
+        border-bottom: 1px solid var(--gray-200);
+        transition: var(--transition);
+      }
+
+      .compatibility-table tbody tr:hover {
+        background: var(--light-red);
+        transform: scale(1.02);
+      }
+
+      .compatible {
+        color: var(--success-green);
+        font-weight: 600;
+      }
+
+      .incompatible {
+        color: var(--primary-red);
+        font-weight: 600;
+      }
+
+      /* Statistics Cards */
+      .stats-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .stats-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+      }
+
+      .stats-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stats-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-red);
+        margin-bottom: 0.5rem;
+      }
+
+      .stats-label {
+        font-size: 1.1rem;
+        color: var(--gray-600);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        40% {
+          transform: translateX(-50%) translateY(-15px);
+        }
+        60% {
+          transform: translateX(-50%) translateY(-7px);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      @keyframes countUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
         .hero h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 1s ease;
+          font-size: 2.5rem;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease 0.3s both;
+          font-size: 1.1rem;
         }
 
-        .hero-stats {
-            margin-top: 3rem;
-            animation: fadeInUp 1s ease 0.6s both;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--warning-orange);
-            display: block;
-            counter-reset: number;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        /* Section Enhancements */
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gray-800);
-            margin-bottom: 3rem;
-            position: relative;
-            text-align: center;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: var(--primary-red);
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--gray-600);
-            text-align: center;
-            margin-bottom: 4rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* About Section with Visualizations */
-        .about-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-
-        .about-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .about-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Progress Bars */
-        .progress-custom {
-            height: 12px;
-            border-radius: 10px;
-            background: var(--gray-200);
-            overflow: hidden;
-            margin-bottom: 1rem;
-        }
-
-        .progress-bar-custom {
-            height: 100%;
-            border-radius: 10px;
-            background: var(--gradient-primary);
-            transition: width 2s ease;
-            position: relative;
-        }
-
-        .progress-bar-custom::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        /* Chart Containers */
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin: 2rem 0;
-            padding: 1rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-        }
-
-        .chart-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--gray-800);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        /* Interactive Blood Drop Animation */
-        .blood-drop {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-primary);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            position: relative;
-            animation: pulse 2s infinite;
-            margin: 0 auto 1rem;
-        }
-
-        .blood-drop::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 50%;
-        }
-
-        /* Form Enhancements */
-        .form-floating {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-floating > .form-control {
-            border: 2px solid var(--gray-200);
-            border-radius: 15px;
-            padding: 1rem;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-floating > .form-control:focus {
-            border-color: var(--primary-red);
-            box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
-        }
-
-        .form-floating > label {
-            color: var(--gray-600);
-            font-weight: 500;
-        }
-
-        /* Blood Compatibility Table */
-        .compatibility-table {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .compatibility-table th {
-            background: var(--gradient-primary);
-            color: white;
-            font-weight: 600;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .compatibility-table td {
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 1px solid var(--gray-200);
-            transition: var(--transition);
-        }
-
-        .compatibility-table tbody tr:hover {
-            background: var(--light-red);
-            transform: scale(1.02);
-        }
-
-        .compatible {
-            color: var(--success-green);
-            font-weight: 600;
-        }
-
-        .incompatible {
-            color: var(--primary-red);
-            font-weight: 600;
-        }
-
-        /* Statistics Cards */
-        .stats-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stats-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-
-        .stats-card:hover {
-            transform: translateY(-5px);
+          font-size: 2rem;
         }
 
         .stats-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary-red);
-            margin-bottom: 0.5rem;
+          font-size: 2rem;
         }
 
-        .stats-label {
-            font-size: 1.1rem;
-            color: var(--gray-600);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .chart-container {
+          height: 300px;
         }
+      }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-15px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-7px);
-            }
-        }
+      ::-webkit-scrollbar-track {
+        background: var(--gray-200);
+      }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
+      ::-webkit-scrollbar-thumb {
+        background: var(--primary-red);
+        border-radius: 4px;
+      }
 
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        @keyframes countUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .stats-number {
-                font-size: 2rem;
-            }
-            
-            .chart-container {
-                height: 300px;
-            }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--gray-200);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-red);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--dark-red);
-        }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--dark-red);
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Particles Background -->
     <div id="particles-js"></div>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#home">
-                <i class="fas fa-heart"></i>LifeSaver
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#statistics">Statistics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#donate">Donate</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#request">Request</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="#home">
+          <i class="fas fa-heart"></i>LifeSaver
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#statistics">Statistics</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#donate">Donate</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#request">Request</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <div class="hero-content">
-                        <h1 class="display-2 fw-bold">Give Blood, Save Lives.</h1>
-                        <p class="lead">Every drop counts. Your donation can be the difference between life and death for someone in need. Join our community of heroes today.</p>
-                        <div class="d-flex gap-3 flex-wrap">
-                            <a href="#donate" class="btn btn-light btn-custom btn-lg">
-                                <i class="fas fa-heart me-2"></i>Donate Now
-                            </a>
-                            <a href="#about" class="btn btn-outline-light btn-custom btn-lg">
-                                <i class="fas fa-info-circle me-2"></i>Learn More
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="hero-stats">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="stat-item">
-                                    <span class="stat-number" id="donorsCount">0</span>
-                                    <span class="stat-label">Active Donors</span>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="stat-item">
-                                    <span class="stat-number" id="livesCount">0</span>
-                                    <span class="stat-label">Lives Saved</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <div class="hero-content">
+              <h1 class="display-2 fw-bold">Give Blood, Save Lives.</h1>
+              <p class="lead">
+                Every drop counts. Your donation can be the difference between
+                life and death for someone in need. Join our community of heroes
+                today.
+              </p>
+              <div class="d-flex gap-3 flex-wrap">
+                <a
+                  href="{% url 'donor_create' %}"
+                  class="btn btn-light btn-custom btn-lg"
+                >
+                  <i class="fas fa-heart me-2"></i>Donate Now
+                </a>
+
+                <a
+                  href="#about"
+                  class="btn btn-outline-light btn-custom btn-lg"
+                >
+                  <i class="fas fa-info-circle me-2"></i>Learn More
+                </a>
+              </div>
             </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="hero-stats">
+              <div class="row">
+                <div class="col-6">
+                  <div class="stat-item">
+                    <span class="stat-number" id="donorsCount">0</span>
+                    <span class="stat-label">Active Donors</span>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="stat-item">
+                    <span class="stat-number" id="livesCount">0</span>
+                    <span class="stat-label">Lives Saved</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="scroll-indicator">
-            <i class="fas fa-chevron-down fa-2x"></i>
-        </div>
+      </div>
+      <div class="scroll-indicator">
+        <i class="fas fa-chevron-down fa-2x"></i>
+      </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title">Why Blood Donation Matters</h2>
-            <p class="section-subtitle">Understanding the importance of blood donation and how you can make a difference in someone's life.</p>
-            
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="about-card h-100">
-                        <div class="blood-drop"></div>
-                        <i class="fas fa-user-check about-icon"></i>
-                        <h3 class="mb-3">Eligibility</h3>
-                        <p class="mb-4">Anyone between 18-65 years, weighing 50kg or more, and in good health can donate blood.</p>
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom" style="width: 85%"></div>
-                        </div>
-                        <small class="text-muted">85% of adults are eligible to donate</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="about-card h-100">
-                        <div class="blood-drop"></div>
-                        <i class="fas fa-heart-pulse about-icon"></i>
-                        <h3 class="mb-3">Health Benefits</h3>
-                        <p class="mb-4">Regular blood donation helps maintain healthy iron levels and reduces cardiovascular risks.</p>
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom" style="width: 92%"></div>
-                        </div>
-                        <small class="text-muted">92% of donors report feeling healthier</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="about-card h-100">
-                        <div class="blood-drop"></div>
-                        <i class="fas fa-lightbulb about-icon"></i>
-                        <h3 class="mb-3">Myths vs Facts</h3>
-                        <p class="mb-4">Donating blood is safe, doesn't weaken your immune system, and regenerates quickly.</p>
-                        <div class="progress-custom">
-                            <div class="progress-bar-custom" style="width: 78%"></div>
-                        </div>
-                        <small class="text-muted">78% learn new facts about donation</small>
-                    </div>
-                </div>
+      <div class="container">
+        <h2 class="section-title">Why Blood Donation Matters</h2>
+        <p class="section-subtitle">
+          Understanding the importance of blood donation and how you can make a
+          difference in someone's life.
+        </p>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="about-card h-100">
+              <div class="blood-drop"></div>
+              <i class="fas fa-user-check about-icon"></i>
+              <h3 class="mb-3">Eligibility</h3>
+              <p class="mb-4">
+                Anyone between 18-65 years, weighing 50kg or more, and in good
+                health can donate blood.
+              </p>
+              <div class="progress-custom">
+                <div class="progress-bar-custom" style="width: 85%"></div>
+              </div>
+              <small class="text-muted"
+                >85% of adults are eligible to donate</small
+              >
             </div>
+          </div>
+          <div class="col-md-4">
+            <div class="about-card h-100">
+              <div class="blood-drop"></div>
+              <i class="fas fa-heart-pulse about-icon"></i>
+              <h3 class="mb-3">Health Benefits</h3>
+              <p class="mb-4">
+                Regular blood donation helps maintain healthy iron levels and
+                reduces cardiovascular risks.
+              </p>
+              <div class="progress-custom">
+                <div class="progress-bar-custom" style="width: 92%"></div>
+              </div>
+              <small class="text-muted"
+                >92% of donors report feeling healthier</small
+              >
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="about-card h-100">
+              <div class="blood-drop"></div>
+              <i class="fas fa-lightbulb about-icon"></i>
+              <h3 class="mb-3">Myths vs Facts</h3>
+              <p class="mb-4">
+                Donating blood is safe, doesn't weaken your immune system, and
+                regenerates quickly.
+              </p>
+              <div class="progress-custom">
+                <div class="progress-bar-custom" style="width: 78%"></div>
+              </div>
+              <small class="text-muted"
+                >78% learn new facts about donation</small
+              >
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Statistics Section -->
     <section id="statistics" class="py-5">
-        <div class="container">
-            <h2 class="section-title">Blood Donation Statistics</h2>
-            <p class="section-subtitle">Real-time data showing the impact of blood donation in our community.</p>
-            
-            <div class="row g-4 mb-5">
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-number" id="totalDonations">0</div>
-                        <div class="stats-label">Total Donations</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-number" id="activeDonors">0</div>
-                        <div class="stats-label">Active Donors</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-number" id="bloodBanks">0</div>
-                        <div class="stats-label">Blood Banks</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-number" id="emergencyRequests">0</div>
-                        <div class="stats-label">Emergency Requests</div>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <h2 class="section-title">Blood Donation Statistics</h2>
+        <p class="section-subtitle">
+          Real-time data showing the impact of blood donation in our community.
+        </p>
 
-            <div class="row g-4">
-                <div class="col-lg-6">
-                    <div class="chart-container">
-                        <h3 class="chart-title">Blood Type Distribution</h3>
-                        <canvas id="bloodTypeChart"></canvas>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="chart-container">
-                        <h3 class="chart-title">Monthly Donations</h3>
-                        <canvas id="monthlyChart"></canvas>
-                    </div>
-                </div>
+        <div class="row g-4 mb-5">
+          <div class="col-md-3">
+            <div class="stats-card">
+              <div class="stats-number" id="totalDonations">0</div>
+              <div class="stats-label">Total Donations</div>
             </div>
-
-            <div class="row g-4 mt-4">
-                <div class="col-12">
-                    <div class="chart-container">
-                        <h3 class="chart-title">Blood Inventory Levels</h3>
-                        <canvas id="inventoryChart"></canvas>
-                    </div>
-                </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card">
+              <div class="stats-number" id="activeDonors">0</div>
+              <div class="stats-label">Active Donors</div>
             </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card">
+              <div class="stats-number" id="bloodBanks">0</div>
+              <div class="stats-label">Blood Banks</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stats-card">
+              <div class="stats-number" id="emergencyRequests">0</div>
+              <div class="stats-label">Emergency Requests</div>
+            </div>
+          </div>
         </div>
+
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="chart-container">
+              <h3 class="chart-title">Blood Type Distribution</h3>
+              <canvas id="bloodTypeChart"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="chart-container">
+              <h3 class="chart-title">Monthly Donations</h3>
+              <canvas id="monthlyChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+          <div class="col-12">
+            <div class="chart-container">
+              <h3 class="chart-title">Blood Inventory Levels</h3>
+              <canvas id="inventoryChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Forms Section -->
     <section id="donate" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title">Join Our Mission</h2>
-            <p class="section-subtitle">Register as a donor or request blood for someone in need.</p>
-            
-            <div class="row g-4">
-                <!-- Donor Registration -->
-                <div class="col-lg-6">
-                    <div class="card card-custom h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center mb-4">
-                                <i class="fas fa-user-plus fa-3x text-danger mb-3"></i>
-                                <h3 class="card-title">Become a Donor</h3>
-                                <p class="text-muted">Join thousands of heroes saving lives</p>
-                            </div>
-                            <form>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="donorName" placeholder="Full Name" required>
-                                    <label for="donorName">Full Name</label>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="donorAge" placeholder="Age" min="18" max="65" required>
-                                            <label for="donorAge">Age</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <select class="form-control" id="donorGender" required>
-                                                <option value="">Choose...</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                            <label for="donorGender">Gender</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <select class="form-control" id="donorBlood" required>
-                                        <option value="">Select Blood Group</option>
-                                        <option value="A+">A+</option>
-                                        <option value="A-">A-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="B-">B-</option>
-                                        <option value="AB+">AB+</option>
-                                        <option value="AB-">AB-</option>
-                                        <option value="O+">O+</option>
-                                        <option value="O-">O-</option>
-                                    </select>
-                                    <label for="donorBlood">Blood Group</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="donorPhone" placeholder="Phone Number" required>
-                                    <label for="donorPhone">Phone Number</label>
-                                </div>
-                                <div class="form-floating mb-4">
-                                    <input type="text" class="form-control" id="donorLocation" placeholder="Location" required>
-                                    <label for="donorLocation">Location</label>
-                                </div>
-                                <button type="submit" class="btn btn-danger btn-custom w-100">
-                                    <i class="fas fa-heart me-2"></i>Register as Donor
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+      <div class="container">
+        <h2 class="section-title">Join Our Mission</h2>
+        <p class="section-subtitle">
+          Register as a donor or request blood for someone in need.
+        </p>
 
-                <!-- Blood Request -->
-                <div class="col-lg-6" id="request">
-                    <div class="card card-custom h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center mb-4">
-                                <i class="fas fa-hand-holding-medical fa-3x text-danger mb-3"></i>
-                                <h3 class="card-title">Request Blood</h3>
-                                <p class="text-muted">Get help when you need it most</p>
-                            </div>
-                            <form>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="patientName" placeholder="Patient Name" required>
-                                    <label for="patientName">Patient Name</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="hospital" placeholder="Hospital" required>
-                                    <label for="hospital">Hospital</label>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <select class="form-control" id="requiredBlood" required>
-                                                <option value="">Select Blood Group</option>
-                                                <option value="A+">A+</option>
-                                                <option value="A-">A-</option>
-                                                <option value="B+">B+</option>
-                                                <option value="B-">B-</option>
-                                                <option value="AB+">AB+</option>
-                                                <option value="AB-">AB-</option>
-                                                <option value="O+">O+</option>
-                                                <option value="O-">O-</option>
-                                            </select>
-                                            <label for="requiredBlood">Required Blood Group</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <select class="form-control" id="urgency" required>
-                                                <option value="">Select Urgency</option>
-                                                <option value="critical">Critical (2 hours)</option>
-                                                <option value="urgent">Urgent (24 hours)</option>
-                                                <option value="normal">Normal (3 days)</option>
-                                            </select>
-                                            
+        <div class="row g-4">
+          <!-- Donor Registration -->
+          <div class="col-lg-6">
+            <div class="card card-custom h-100">
+              <div class="card-body p-4">
+                <div class="text-center mb-4">
+                  <i class="fas fa-user-plus fa-3x text-danger mb-3"></i>
+                  <h3 class="card-title">Become a Donor</h3>
+                  <p class="text-muted">
+                    Join thousands of heroes saving lives
+                  </p>
+                </div>
+                <form>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="donorName"
+                      placeholder="Full Name"
+                      required
+                    />
+                    <label for="donorName">Full Name</label>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="donorAge"
+                          placeholder="Age"
+                          min="18"
+                          max="65"
+                          required
+                        />
+                        <label for="donorAge">Age</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                        <select class="form-control" id="donorGender" required>
+                          <option value="">Choose...</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <label for="donorGender">Gender</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select class="form-control" id="donorBlood" required>
+                      <option value="">Select Blood Group</option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                    </select>
+                    <label for="donorBlood">Blood Group</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="donorPhone"
+                      placeholder="Phone Number"
+                      required
+                    />
+                    <label for="donorPhone">Phone Number</label>
+                  </div>
+                  <div class="form-floating mb-4">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="donorLocation"
+                      placeholder="Location"
+                      required
+                    />
+                    <label for="donorLocation">Location</label>
+                  </div>
+                  <button type="submit" class="btn btn-danger btn-custom w-100">
+                    <i class="fas fa-heart me-2"></i>Register as Donor
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blood Request -->
+          <div class="col-lg-6" id="request">
+            <div class="card card-custom h-100">
+              <div class="card-body p-4">
+                <div class="text-center mb-4">
+                  <i
+                    class="fas fa-hand-holding-medical fa-3x text-danger mb-3"
+                  ></i>
+                  <h3 class="card-title">Request Blood</h3>
+                  <p class="text-muted">Get help when you need it most</p>
+                </div>
+                <form>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="patientName"
+                      placeholder="Patient Name"
+                      required
+                    />
+                    <label for="patientName">Patient Name</label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="hospital"
+                      placeholder="Hospital"
+                      required
+                    />
+                    <label for="hospital">Hospital</label>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                        <select
+                          class="form-control"
+                          id="requiredBlood"
+                          required
+                        >
+                          <option value="">Select Blood Group</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                        </select>
+                        <label for="requiredBlood">Required Blood Group</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating mb-3">
+                        <select class="form-control" id="urgency" required>
+                          <option value="">Select Urgency</option>
+                          <option value="critical">Critical (2 hours)</option>
+                          <option value="urgent">Urgent (24 hours)</option>
+                          <option value="normal">Normal (3 days)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

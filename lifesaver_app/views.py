@@ -27,3 +27,6 @@ def receiver_create(request):
         form.save()
         return redirect('receiver_list')
     return render(request, 'lifesaver_app/receiver_form.html', {'form': form})
+
+def home(request):
+    return render(request, 'lifesaver_app/index.html')
