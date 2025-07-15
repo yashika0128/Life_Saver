@@ -36,7 +36,7 @@
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/LifeSaver.git
+git clone https://github.com/yashika0128/LifeSaver.git
 cd LifeSaver
 ```
 ### 2. Set up the virtual environment
