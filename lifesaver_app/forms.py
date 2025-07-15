@@ -15,6 +15,30 @@ class DonorForm(forms.ModelForm):
         }
 
 class ReceiverForm(forms.ModelForm):
+    BLOOD_GROUP_CHOICES = [
+        ('A+', 'A+'), ('A-', 'A-'),
+        ('B+', 'B+'), ('B-', 'B-'),
+        ('AB+', 'AB+'), ('AB-', 'AB-'),
+        ('O+', 'O+'), ('O-', 'O-'),
+    ]
+
+    URGENCY_CHOICES = [
+        ('Low', 'Low'),
+        ('Medium', 'Medium'),
+        ('High', 'High'),
+        ('Critical', 'Critical'),
+    ]
+
+    required_blood_group = forms.ChoiceField(
+        choices=BLOOD_GROUP_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
+    urgency = forms.ChoiceField(
+        choices=URGENCY_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
     class Meta:
         model = Receiver
         fields = '__all__'

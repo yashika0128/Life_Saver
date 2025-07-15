@@ -42,3 +42,31 @@ def trusted_network(request):
 
 def track_impact(request):
     return render(request, 'lifesaver_app/track_impact.html')
+
+def safe_easy_donation(request):
+    return render(request, 'lifesaver_app/safe_easy_donation.html')
+
+def donor_list(request):
+    donors = Donor.objects.all()
+    return render(request, 'lifesaver_app/donor_list.html', {'donors': donors})
+
+from django.shortcuts import get_object_or_404, redirect
+
+def donor_edit(request, pk):
+    donor = get_object_or_404(Donor, pk=pk)
+    if request.method == 'POST':
+        form = DonorForm(request.POST, instance=donor)
+        if form.is_valid():
+            form.save()
+            return redirect('donor_list')
+    else:
+        form = DonorForm(instance=donor)
+    return render(request, 'lifesaver_app/donor_form.html', {'form': form})
+
+def donor_delete(request, pk):
+    donor = get_object_or_404(Donor, pk=pk)
+    if request.method == 'POST':
+        donor.delete()
+        return redirect('donor_list')
+    return render(request, 'lifesaver_app/donor_confirm_delete.html', {'donor': donor})
+
