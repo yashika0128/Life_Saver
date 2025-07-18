@@ -5,6 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lifesaver - Save Lives Through Blood Donation</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
     <style>
       * {
         margin: 0;
@@ -513,6 +518,49 @@
     </header>
 
     <div class="container">
+      {% if show_success and donor_data %}
+      <div
+        style="
+          background-color: #28a745;
+          color: white;
+          padding: 20px;
+          border-radius: 10px;
+          margin-bottom: 20px;
+          text-align: center;
+        "
+      >
+        🎉 <strong>Thank You {{ donor_data.name }}!</strong><br />
+        Your donation intent has been recorded successfully.
+      </div>
+
+      <div
+        style="
+          background: rgba(255, 255, 255, 0.1);
+          padding: 15px;
+          border-left: 4px solid #ff6b6b;
+          border-radius: 10px;
+          color: white;
+        "
+      >
+        <h5>Your Submitted Details:</h5>
+        <ul style="list-style: none; padding-left: 0">
+          <li><strong>Age:</strong> {{ donor_data.age }}</li>
+          <li><strong>Gender:</strong> {{ donor_data.gender }}</li>
+          <li><strong>Blood Group:</strong> {{ donor_data.blood_group }}</li>
+          <li><strong>Phone:</strong> {{ donor_data.phone }}</li>
+          <li><strong>Email:</strong> {{ donor_data.email }}</li>
+          <li><strong>Location:</strong> {{ donor_data.location }}</li>
+          <li>
+            <strong>Last Donation Date:</strong> {{
+            donor_data.last_donation_date }}
+          </li>
+        </ul>
+        <a href="{% url 'donor_create' %}" class="btn btn-primary mt-2"
+          >Proceed to Donate</a
+        >
+      </div>
+      {% endif %}
+
       <!-- Hero Section -->
       <section class="hero">
         <h1>Save Lives, Donate Blood</h1>
@@ -568,36 +616,45 @@
               </p>
             </div>
           </a>
-          <a href="{% url 'trusted_network' %}" class="text-decoration-none text-reset">
-          <div class="feature-card">
-            <span class="feature-icon">🏥</span>
-            <h3>Trusted Network</h3>
-            <p>
-              Connected with hospitals and blood banks nationwide for reliable
-              and professional service you can trust.
-            </p>
-          </div>
+          <a
+            href="{% url 'trusted_network' %}"
+            class="text-decoration-none text-reset"
+          >
+            <div class="feature-card">
+              <span class="feature-icon">🏥</span>
+              <h3>Trusted Network</h3>
+              <p>
+                Connected with hospitals and blood banks nationwide for reliable
+                and professional service you can trust.
+              </p>
+            </div>
           </a>
-          <a href="{% url 'track_impact' %}" class="text-decoration-none text-reset">
-          <div class="feature-card">
-            <span class="feature-icon">📊</span>
-            <h3>Track Your Impact</h3>
-            <p>
-              See how your generous donations are making a real difference with
-              transparent impact tracking.
-            </p>
-          </div>
+          <a
+            href="{% url 'track_impact' %}"
+            class="text-decoration-none text-reset"
+          >
+            <div class="feature-card">
+              <span class="feature-icon">📊</span>
+              <h3>Track Your Impact</h3>
+              <p>
+                See how your generous donations are making a real difference
+                with transparent impact tracking.
+              </p>
+            </div>
           </a>
 
-          <a href="{% url 'community' %}" class="text-decoration-none text-reset">
-          <div class="feature-card">
-            <span class="feature-icon">☘️</span>
-            <h3>Share Your Story</h3>
-            <p>
-              Join a caring community of donors and recipients working together
-              to save lives every day.
-            </p>
-          </div>
+          <a
+            href="{% url 'community' %}"
+            class="text-decoration-none text-reset"
+          >
+            <div class="feature-card">
+              <span class="feature-icon">☘️</span>
+              <h3>Share Your Story</h3>
+              <p>
+                Join a caring community of donors and recipients working
+                together to save lives every day.
+              </p>
+            </div>
           </a>
         </div>
       </section>

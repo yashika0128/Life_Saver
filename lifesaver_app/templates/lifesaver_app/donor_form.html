@@ -27,335 +27,209 @@
           #0f3460 100%
         );
         min-height: 100vh;
+        color: white;
         overflow-x: hidden;
-        color: #281010;
-      }
-      /* Gentle Floating Bubbles */
-      .bubbles {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
       }
 
-      .bubble {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        background: radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.1) 0%,
-          rgba(255, 255, 255, 0.05) 70%
-        );
-        border-radius: 50%;
-        animation: bubbleFloat 8s ease-in-out infinite;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      @keyframes bubbleFloat {
-        0%,
-        100% {
-          transform: translateY(0) translateX(0);
-          opacity: 0.3;
-        }
-        50% {
-          transform: translateY(-30px) translateX(15px);
-          opacity: 0.8;
-        }
-      }
-
-      /* Soft Heart Particles */
-      .hearts {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .heart {
-        position: absolute;
-        color: rgba(255, 182, 193, 0.6);
-        font-size: 20px;
-        animation: heartFloat 6s ease-in-out infinite;
-      }
-
-      @keyframes heartFloat {
-        0%,
-        100% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 0.4;
-        }
-        50% {
-          transform: translateY(-20px) rotate(10deg);
-          opacity: 0.8;
-        }
-      }
-
-      /* Gentle Pulse Background */
-      .pulse-bg {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 500px;
-        height: 500px;
-        background: radial-gradient(
-          circle,
-          rgba(100, 149, 237, 0.1) 0%,
-          transparent 70%
-        );
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        animation: gentlePulse 4s ease-in-out infinite;
-        z-index: 1;
-      }
-
-      @keyframes gentlePulse {
-        0%,
-        100% {
-          transform: translate(-50%, -50%) scale(0.8);
-          opacity: 0.3;
-        }
-        50% {
-          transform: translate(-50%, -50%) scale(1.1);
-          opacity: 0.6;
-        }
-      }
-
-      /* Twinkling Stars */
-      .stars {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .star {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: #ffffff;
-        border-radius: 50%;
-        animation: twinkle 3s ease-in-out infinite;
-      }
-
-      @keyframes twinkle {
-        0%,
-        100% {
-          opacity: 0.3;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 1;
-          transform: scale(1.5);
-        }
-      }
-
-      .main-container {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 3rem 1rem;
+      .form-card {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border-radius: 20px;
+        padding: 40px;
+        margin: 5rem auto;
+        width: 90%;
+        max-width: 700px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         position: relative;
         z-index: 10;
       }
-      .form-card {
-        background: rgba(252, 251, 251, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        box-shadow: 0 25px 50px rgba(82, 19, 19, 0.15);
-        border: 1px solid rgba(101, 52, 52, 0.2);
-        padding: 3rem;
-        width: 100%;
-        max-width: 700px;
-        position: relative;
-      }
-      .form-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #dc3545, #38200c, #dc3545);
-        border-radius: 20px 20px 0 0;
-      }
-      .header-section {
-        text-align: center;
-        margin-bottom: 2.5rem;
-      }
-      .icon-container {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 1.5rem;
-        background: linear-gradient(135deg, #dc3545, #fd7e14);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
-        animation: pulse 2s infinite;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-      }
-      .icon-container i {
-        color: white;
-        font-size: 2rem;
-      }
-      .page-title {
-        font-size: 2rem;
+
+      .form-card h1 {
+        color: #dc3545;
         font-weight: 700;
-        color: #2c3e50;
+        margin-bottom: 10px;
       }
-      .page-subtitle {
-        color: #6c757d;
+
+      .form-card p {
+        color: #666;
       }
+
       .btn-primary {
         background: linear-gradient(135deg, #dc3545, #fd7e14);
         border: none;
         border-radius: 12px;
-        padding: 0.875rem 2rem;
+        padding: 0.8rem 2rem;
         font-size: 1rem;
         font-weight: 600;
         width: 100%;
         box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
       }
+
       .btn-primary:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
-        background: linear-gradient(135deg, #c82333, #e8590c);
       }
-      .btn-outline-secondary {
-        margin-top: 1rem;
-        border-radius: 12px;
-      }
-      .bubbles,
-      .hearts,
-      .stars {
+
+      /* POPUP STYLES */
+      .popup-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        pointer-events: none;
-        z-index: 1;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(4px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s ease;
       }
-      .bubble,
-      .heart,
-      .star {
-        position: absolute;
-        border-radius: 50%;
-        animation: floatAnimation 8s ease-in-out infinite;
+
+      .popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
       }
-      @keyframes floatAnimation {
-        0%,
-        100% {
-          transform: translateY(0);
-          opacity: 0.3;
-        }
-        50% {
-          transform: translateY(-30px);
-          opacity: 0.8;
-        }
+
+      .popup {
+        background: #1e1e2e;
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #444;
+      }
+
+      .popup-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+      }
+
+      .popup-actions button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .edit-btn {
+        background-color: #28a745;
+        color: white;
+      }
+      .delete-btn {
+        background-color: #dc3545;
+        color: white;
+      }
+      .confirm-btn {
+        background-color: #ffc107;
+        color: #000;
+      }
+
+      .success-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #28a745;
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        z-index: 2000;
+        display: none;
       }
     </style>
   </head>
   <body>
-    <div class="animated-bg">
-      <span></span><span></span><span></span><span></span><span></span
-      ><span></span>
+    <div class="form-card">
+      <h1>Register as Donor</h1>
+      <p>Join our community and help save lives through blood donation.</p>
+
+      <form id="donorForm" method="POST">
+        {% csrf_token %} {{ form.as_p }}
+
+        <button
+          type="button"
+          class="btn btn-primary mt-3"
+          onclick="showPopup()"
+        >
+          Register to Save Lives
+        </button>
+      </form>
     </div>
 
-    <div class="bubbles"></div>
-    <div class="hearts"></div>
-    <div class="stars"></div>
-    <div class="container main-container">
-      <div class="form-card">
-        <div class="header-section">
-          <div class="icon-container">
-            <i class="fas fa-heart"></i>
-          </div>
-          <h1 class="page-title">Register as Donor</h1>
-          <p class="page-subtitle">
-            Join our lifesaving community and help save lives through blood
-            donation
-          </p>
+    <!-- Confirmation Popup -->
+    <div class="popup-overlay" id="popupOverlay">
+      <div class="popup">
+        <h2>🩸 Confirm Your Details</h2>
+        <div id="summaryContent" class="mt-4">
+          <!-- Summary details inserted dynamically -->
         </div>
-        <form method="POST">
-          {% csrf_token %} {{ form.as_p }}
-
-          <button
-            id="submitBtn"
-            type="submit"
-            class="btn btn-primary mt-3"
-            onclick="animateSubmit(event)"
-          >
-            <span id="btnIcon"><i class="fas fa-heart me-2"></i></span>
-            <span id="btnText">Register to Save Lives</span>
-          </button>
-        </form>
-        <div class="text-center">
-          <a href="/" class="btn btn-outline-secondary w-100">
-            <i class="fas fa-arrow-left me-2"></i>Back to Home
-          </a>
+        <div class="popup-actions mt-4">
+          <button class="edit-btn" onclick="closePopup()">Edit</button>
+          <button class="confirm-btn" onclick="submitForm()">Confirm</button>
         </div>
       </div>
     </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+      <h3>🎉 Thank You!</h3>
+      <p>Your donation has been successfully registered!</p>
+    </div>
+
     <script>
-      function createElement(className, containerId) {
-        const el = document.createElement("div");
-        el.className = className;
-        el.style.left = Math.random() * 100 + "vw";
-        el.style.top = Math.random() * 100 + "vh";
-        el.style.width = el.style.height = Math.random() * 20 + 10 + "px";
-        document.querySelector(containerId).appendChild(el);
-        setTimeout(() => el.remove(), 8000);
+      function showPopup() {
+        const form = document.getElementById("donorForm");
+        const inputs = form.querySelectorAll("input, select, textarea");
+        let summary = "";
+
+        inputs.forEach((input) => {
+          if (
+            input.name !== "csrfmiddlewaretoken" && // Ignore CSRF token
+            input.type !== "submit" &&
+            input.value.trim() !== ""
+          ) {
+            const label =
+              input.labels?.[0]?.innerText ||
+              input.name
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (l) => l.toUpperCase());
+            summary += `<div class="summary-item"><span>${label}:</span><span>${input.value}</span></div>`;
+          }
+        });
+
+        document.getElementById("summaryContent").innerHTML = summary;
+        document.getElementById("popupOverlay").classList.add("active");
       }
-      setInterval(() => createElement("bubble", ".bubbles"), 1000);
-      setInterval(() => createElement("heart", ".hearts"), 1500);
-      setInterval(() => createElement("star", ".stars"), 800);
+
+      function closePopup() {
+        document.getElementById("popupOverlay").classList.remove("active");
+      }
+
+      function submitForm() {
+        document.getElementById("popupOverlay").classList.remove("active");
+        const successMsg = document.getElementById("successMessage");
+        successMsg.style.display = "block";
+
+        // Redirect to homepage after 2.5 seconds
+        setTimeout(() => {
+          successMsg.style.display = "none";
+          window.location.href = "/"; // Update this if your home URL is different
+        }, 2500);
+      }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  <script>
-  function animateSubmit(event) {
-    const btn = document.getElementById("submitBtn");
-    const icon = document.getElementById("btnIcon");
-    const text = document.getElementById("btnText");
-
-    event.preventDefault(); // prevent default for visual effect
-    text.innerText = "Saving...";
-    icon.innerHTML = "🐰"; // Bunny!
-    btn.disabled = true;
-
-    // Button bounce effect
-    btn.style.transition = "transform 0.3s ease";
-    btn.style.transform = "scale(1.1)";
-    setTimeout(() => {
-      btn.style.transform = "scale(1)";
-    }, 300);
-
-    // Submit after short delay
-    setTimeout(() => {
-      btn.closest("form").submit();
-    }, 800); // 0.8s delay for the bounce effect
-  }
-</script>
-
   </body>
 </html>

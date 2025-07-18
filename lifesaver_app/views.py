@@ -2,9 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Donor, Receiver
 from .forms import DonorForm, ReceiverForm
 
-# 🏠 Home Page
-def index(request):
-    return render(request, 'lifesaver_app/index.html')
+# 🏠 Home Page with donor success message
+def home(request):
+    donor_data = request.session.pop('donor_data', None)
+    success = request.session.pop('success', False)
+    print("donor_data:", donor_data)
+    print("show_success:", success)
+    return render(request, 'lifesaver_app/index.html', {
+        'donor_data': donor_data,
+        'show_success': success
+    })
 
 # 🩸 Donor Views
 def donor_list(request):
@@ -12,10 +19,24 @@ def donor_list(request):
     return render(request, 'lifesaver_app/donor_list.html', {'donors': donors})
 
 def donor_create(request):
-    form = DonorForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('donor_list')
+    if request.method == 'POST':
+        form = DonorForm(request.POST)
+        if form.is_valid():
+            donor = form.save()
+            request.session['donor_data'] = {
+                'name': donor.name,
+                'age': donor.age,
+                'gender': donor.gender,
+                'blood_group': donor.blood_group,
+                'phone': donor.phone_number,
+                'email': donor.email,
+                'location': donor.location,
+                'last_donation_date': str(donor.last_donation_date),
+            }
+            request.session['success'] = True
+            return redirect('home')  # Redirect to homepage
+    else:
+        form = DonorForm()
     return render(request, 'lifesaver_app/donor_form.html', {'form': form})
 
 def donor_edit(request, pk):
